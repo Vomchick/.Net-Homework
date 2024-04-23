@@ -12,9 +12,15 @@
             {
                 sum += multiple-- * (int)Char.GetNumericValue(digit);
             }
-            int checkDigit = 11 - sum % 11;
-            if (checkDigit == 10) Console.WriteLine("Check digit id X");
-            else Console.WriteLine($"Check digit is {checkDigit}");
+            int checkDigit = (11 - sum % 11) % 11;
+            if (checkDigit == 10)
+            {
+                Console.WriteLine("Resulting ISBN is: " + digitInput + 'X');
+            }
+            else
+            {
+                Console.WriteLine("Resulting ISBN is: " + digitInput + checkDigit);
+            }
         }
     }
 }
