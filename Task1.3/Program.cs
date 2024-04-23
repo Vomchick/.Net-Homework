@@ -6,6 +6,7 @@
         {
             int count = 0;
             bool repeat = false;
+            int[] set = new int[arr.Length];
             for (int i = 0; i < arr.Length; i++)
             {
                 for (int j = 0; j < i; j++)
@@ -16,24 +17,17 @@
                         break;
                     }
                 }
-                if (!repeat) count++;
-                else repeat = false;
-            }
-            
-            var set = new int[count];
-            int index = 0;
-            for (int i = 0; i < arr.Length; i++)
-            {
-                for (int j = 0; j < i; j++)
+                if (!repeat)
                 {
-                    if (arr[j] == arr[i]) { 
-                        repeat = true;
-                        break;
-                    }
+                    set[count++] = arr[i];
                 }
-                if (!repeat) set[index++] = arr[i];
-                else repeat = false;
+                else 
+                { 
+                    repeat = false; 
+                }
             }
+            Array.Resize(ref set, count);
+            
             return set;
         }
         static void Main(string[] args)
@@ -46,11 +40,18 @@
                 arr[i] = int.Parse(Console.ReadLine());
             }
 
-            foreach (int i in arr) Console.Write(i + " ");
+            foreach (int i in arr)
+            {
+                Console.Write(i + " ");
+            }
+
             Console.WriteLine();
 
             var set = SetCreation(arr);
-            foreach (int i in set) Console.Write(i + " ");
+            foreach (int i in set) 
+            { 
+                Console.Write(i + " "); 
+            }
         }
     }
 }
