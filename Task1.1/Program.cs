@@ -8,13 +8,15 @@
             int a = int.Parse(Console.ReadLine());
             int b = int.Parse(Console.ReadLine());
 
+            int bigger = Math.Max(a, b);
+            int smaller = Math.Min(a, b);
             int counter = 0;
-            for (int i = a; i <= b; i++)
+            for (int i = smaller; i <= bigger; i++)
             {
                 int j = i;
-                while (j > 11)
+                while (Math.Abs(j) > 11)
                 {
-                    if (j % 12 == 10) counter++;
+                    if (Math.Abs(j % 12) == 10) counter++;
                     j /= 12;
                 }
                 if (counter == 2) Console.Write(i + " ");
