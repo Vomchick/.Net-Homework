@@ -16,12 +16,16 @@
                 int j = i;
                 while (Math.Abs(j) > 11)
                 {
-                    if (Math.Abs(j % 12) == 10) 
+                    if (Math.Abs(j % 12) == 10)
+                    {
                         counter++;
+                    }
                     j /= 12;
                 }
                 if (counter == 2)
+                {
                     Console.Write(i + " ");
+                }
                 counter = 0;
             }
         }
