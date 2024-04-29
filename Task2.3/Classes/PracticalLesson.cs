@@ -6,9 +6,6 @@ using System.Threading.Tasks;
 
 namespace Task2._3.Classes
 {
-    public class PracticalLesson : Lesson
-    {
-        public string? LinkToTheTask { get; set; }
-        public string? LinkToTheSolution { get; set; }
-    }
+    public record PracticalLesson (string? Description, string? LinkToTheTask,
+        string? LinkToTheSolution) : Lesson(Description);
 }

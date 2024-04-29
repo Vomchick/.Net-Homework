@@ -6,34 +6,35 @@ using System.Threading.Tasks;
 
 namespace Task2._3.Classes
 {
-    public class Trainig : Lesson
+    public class Trainig
     {
-        Lesson[] _lessons = new Lesson[2];
-        int _lastLessonNumer = 0;
+        string? Description;
+        public Lesson[] Lessons { get; private set; } = new Lesson[2];
+        int _lessonsCount = 0;
 
         public void Add(Lesson lesson)
         {
-            if (_lastLessonNumer == _lessons.Length - 1)
+            if (_lessonsCount == Lessons.Length - 1)
             {
-                var newLessons = new Lesson[_lessons.Length * 2];
-                _lessons.CopyTo(newLessons, 0);
-                _lessons = newLessons;
+                var newLessons = new Lesson[Lessons.Length * 2];
+                Lessons.CopyTo(newLessons, 0);
+                Lessons = newLessons;
             }
-            _lessons[_lastLessonNumer++] = lesson;
+            Lessons[_lessonsCount++] = lesson;
         }
 
         public bool IsPractical()
         {
-            if (_lastLessonNumer == 0)
+            if (_lessonsCount == 0)
             {
                 return false;
             }
 
             bool isPractical = true;
 
-            foreach (var lesson in _lessons)
+            for (int i = 0; i < _lessonsCount; i++)
             {
-                if (lesson is not PracticalLesson)
+                if (Lessons[i] is not PracticalLesson)
                 {
                     isPractical = false;
                     break;
@@ -44,29 +45,27 @@ namespace Task2._3.Classes
 
         public void Clone(Trainig trainingToCopy)
         {
-            foreach (var lesson in _lessons)
+            for (int i = 0; i < _lessonsCount; i++)
             {
-                if (lesson == null)
+                if (Lessons[i] == null)
                 {
                     return;
                 }
-                switch (lesson)
+                switch (Lessons[i])
                 {
                     case PracticalLesson practice:
-                        trainingToCopy.Add(new PracticalLesson()
-                        {
-                            Description = practice.Description,
-                            LinkToTheSolution = practice.LinkToTheSolution,
-                            LinkToTheTask = practice.LinkToTheTask
-                        });
+                        trainingToCopy.Add(new PracticalLesson(
+                            practice.Description,
+                            practice.LinkToTheSolution,
+                            practice.LinkToTheTask
+                        ));
                         break;
 
                     case Lecture lecture:
-                        trainingToCopy.Add(new Lecture()
-                        {
-                            Description = lecture.Description,
-                            Topic = lecture.Topic
-                        });
+                        trainingToCopy.Add(new Lecture(
+                            lecture.Description,
+                            lecture.Topic
+                        ));
                         break;
                 }
             }

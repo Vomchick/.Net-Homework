@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Task2.3", "Task2.3", "{4AF2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task2.3", "Task2.3\Task2.3.csproj", "{77A58AE4-FBFC-459A-8FA9-B7D2962C29C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessonsTest", "LessonsTest\LessonsTest.csproj", "{D1663B03-4D99-402C-9627-A30EF2D23734}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainingTest", "LessonsTest\TrainingTest.csproj", "{D1663B03-4D99-402C-9627-A30EF2D23734}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

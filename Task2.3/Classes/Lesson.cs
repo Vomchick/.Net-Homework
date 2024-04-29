@@ -6,8 +6,5 @@ using System.Threading.Tasks;
 
 namespace Task2._3.Classes
 {
-    public abstract class Lesson
-    {
-        public string? Description { get; set; }
-    }
+    public abstract record Lesson(string? Desription);
 }
