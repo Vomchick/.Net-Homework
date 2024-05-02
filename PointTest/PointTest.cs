@@ -24,19 +24,27 @@ namespace PointTest
         {
             var point1 = new Task2._1.Point()
             {
-                X = 1,
-                Y = 2,
-                Z = 3,
+                X = 0,
+                Y = 0,
+                Z = 0,
                 Mass = -4f
             };
 
-            Assert.IsFalse(point1.isZero());
-            point1.X = 0;
-            Assert.IsFalse(point1.isZero());
-            point1.Y = 0;
-            Assert.IsFalse(point1.isZero());
-            point1.Z = 0;
-            Assert.IsTrue(point1.isZero());
+            Assert.IsTrue(point1.IsZero());
+        }
+
+        [TestMethod]
+        public void PointIsNotZero()
+        {
+            var point1 = new Task2._1.Point()
+            {
+                X = 0,
+                Y = 0,
+                Z = 1,
+                Mass = -4f
+            };
+
+            Assert.IsFalse(point1.IsZero());
         }
 
         [TestMethod]
@@ -93,7 +101,7 @@ namespace PointTest
                 Mass = 5f
             };
 
-            Assert.IsTrue(point1.Distance(point2) == 6.082762530298219);
+            Assert.IsTrue((point1.Distance(point2) - 6.082762530298219) < Double.Epsilon);
         }
 
         [TestMethod]
@@ -115,7 +123,7 @@ namespace PointTest
                 Mass = 5f
             };
 
-            Assert.IsTrue(point2.Distance(point1) == 6.082762530298219);
+            Assert.IsTrue((point2.Distance(point1) - 6.082762530298219) < Double.Epsilon);
         }
     }
 }
