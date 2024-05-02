@@ -1,111 +1,103 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
-namespace Task2._2
+namespace Task2._2;
+
+public class Matrix
 {
-    public class Matrix
-    {
-        int[] _elements;
-        public int Size { get; }
+    int[] _elements;
+    public int Size { get; }
 
-        public Matrix(params int[] elements)
+    public Matrix(params int[] elements)
+    {
+        if (elements == null)
         {
-            if (elements == null)
+            Size = 0;
+            _elements = [];
+        }
+        else
+        {
+            Size = elements.Length;
+            _elements = new int[elements.Length];
+            elements.CopyTo(_elements, 0);
+        }
+
+    }
+
+    public int this[int i, int j]
+    {
+        get 
+        {
+            if (IndexCheck(i,j) && i == j)
             {
-                Size = 0;
-                _elements = [];
+                return _elements[i];
             }
             else
             {
-                Size = elements.Length;
-                _elements = elements;
+                return 0;
             }
-
         }
-
-        public int this[int i, int j]
+        set
         {
-            get 
+            if (IndexCheck(i,j) && i == j)
             {
-                if (IndexCheck(i,j) && i == j)
+                _elements[i] = value;
+            }
+        }
+    }
+
+    bool IndexCheck(int i, int j)
+    {
+        return i < Size && i >= 0 && j < Size && j >= 0;
+    }
+
+    public int Track()
+    {
+        int sum = 0;
+        foreach (int i in _elements) 
+        {
+            sum += i;
+        }
+        return sum;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        var matrix = obj as Matrix;
+        if (matrix != null && matrix.Size == Size)
+        {
+            for (int i = 0; i < Size; i++)
+            {
+                if (matrix[i,i] != _elements[i])
                 {
-                    return _elements[i];
-                }
-                else
-                {
-                    return 0;
+                    return false;
                 }
             }
-            set
-            {
-                if (IndexCheck(i,j) && i == j)
-                {
-                    _elements[i] = value;
-                }
-            }
+            return true;
         }
-        bool IndexCheck(int i, int j)
-        {
-            if(i < Size && i  >= 0 && j < Size && j >= 0)
-            {
-                return true;
-            }
-            return false;
-        }
+        return false;
+    }
 
-        public int Track()
+    public override string ToString()
+    {
+        var sb = new StringBuilder();
+        for(int i = 0; i < Size; i++)
         {
-            int sum = 0;
-            foreach (int i in _elements) 
+            for(int j = 0; j < Size; j++)
             {
-                sum += i;
+                sb.Append(this[i,j] + " ");
             }
-            return sum;
+            sb.Append("\n");
         }
+        return sb.ToString();
+    }
 
-        public override bool Equals(object? obj)
+    public override int GetHashCode()
+    {
+        int hash = 0;
+        foreach(var element in _elements)
         {
-            var matrix = obj as Matrix;
-            if (matrix != null && matrix.Size == Size)
-            {
-                for (int i = 0; i < Size; i++)
-                {
-                    if (matrix[i,i] != _elements[i])
-                    {
-                        return false;
-                    }
-                }
-                return true;
-            }
-            return false;
-
+            hash += element.GetHashCode();
         }
-
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            for(int i = 0; i < Size; i++)
-            {
-                for(int j = 0; j < Size; j++)
-                {
-                    sb.Append(this[i,j] + " ");
-                }
-                sb.Append("\n");
-            }
-            return sb.ToString();
-        }
-
-        public override int GetHashCode()
-        {
-            int hash = 0;
-            foreach(var element in _elements)
-            {
-                hash += element.GetHashCode();
-            }
-            return hash + Size.GetHashCode();
-        }
+        return hash + Size.GetHashCode();
     }
 }
