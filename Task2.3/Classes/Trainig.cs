@@ -1,74 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Task2._3.Classes;
 
-namespace Task2._3.Classes
+public class Trainig : LessonBase
 {
-    public class Trainig
+    public LessonBase[] Lessons { get; private set; } = new LessonBase[2];
+    int _lessonsCount = 0;
+
+    public void Add(LessonBase lesson)
     {
-        string? Description;
-        public Lesson[] Lessons { get; private set; } = new Lesson[2];
-        int _lessonsCount = 0;
-
-        public void Add(Lesson lesson)
+        if (_lessonsCount == Lessons.Length - 1)
         {
-            if (_lessonsCount == Lessons.Length - 1)
-            {
-                var newLessons = new Lesson[Lessons.Length * 2];
-                Lessons.CopyTo(newLessons, 0);
-                Lessons = newLessons;
-            }
-            Lessons[_lessonsCount++] = lesson;
+            var newLessons = new LessonBase[Lessons.Length * 2];
+            Lessons.CopyTo(newLessons, 0);
+            Lessons = newLessons;
+        }
+        Lessons[_lessonsCount++] = lesson;
+    }
+
+    public bool IsPractical()
+    {
+        if (_lessonsCount == 0)
+        {
+            return false;
         }
 
-        public bool IsPractical()
+        bool isPractical = true;
+
+        for (int i = 0; i < _lessonsCount; i++)
         {
-            if (_lessonsCount == 0)
+            if (Lessons[i] is not PracticalLesson)
             {
-                return false;
-            }
-
-            bool isPractical = true;
-
-            for (int i = 0; i < _lessonsCount; i++)
-            {
-                if (Lessons[i] is not PracticalLesson)
-                {
-                    isPractical = false;
-                    break;
-                }
-            }
-            return isPractical;
-        }
-
-        public void Clone(Trainig trainingToCopy)
-        {
-            for (int i = 0; i < _lessonsCount; i++)
-            {
-                if (Lessons[i] == null)
-                {
-                    return;
-                }
-                switch (Lessons[i])
-                {
-                    case PracticalLesson practice:
-                        trainingToCopy.Add(new PracticalLesson(
-                            practice.Description,
-                            practice.LinkToTheSolution,
-                            practice.LinkToTheTask
-                        ));
-                        break;
-
-                    case Lecture lecture:
-                        trainingToCopy.Add(new Lecture(
-                            lecture.Description,
-                            lecture.Topic
-                        ));
-                        break;
-                }
+                isPractical = false;
+                break;
             }
         }
+        return isPractical;
+    }
+
+    public override object Clone()
+    {
+        var clonedTrainig = new Trainig()
+        {
+            Description = Description,
+            _lessonsCount = _lessonsCount,
+        };
+
+        var clonedLessons = new LessonBase[Lessons.Length];
+        for (int i = 0;i < _lessonsCount; i++)
+        {
+            clonedLessons[i] = (LessonBase)Lessons[i].Clone();
+        }
+
+        clonedTrainig.Lessons = clonedLessons;
+        return clonedTrainig;
     }
 }

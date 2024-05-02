@@ -1,11 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Task2._3.Classes;
 
-namespace Task2._3.Classes
-{
-    public record PracticalLesson (string? Description, string? LinkToTheTask,
-        string? LinkToTheSolution) : Lesson(Description);
-}
+public class PracticalLesson : LessonBase
+{ 
+    public string? LinkToTheTask { get; set; }
+    public string? LinkToTheSolution { get; set; }
+
+    public override object Clone()
+    {
+        return new PracticalLesson() { 
+            Description = Description, 
+            LinkToTheTask = LinkToTheTask, 
+            LinkToTheSolution = LinkToTheSolution 
+        };
+    }
+};

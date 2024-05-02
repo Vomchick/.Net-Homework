@@ -9,13 +9,21 @@ namespace LessonsTest
         public void TrainigAdd()
         {
             var training1 = new Trainig();
-            training1.Add(new Lecture(null, ".Net-Course"));
-            training1.Add(new PracticalLesson(null, null, null));
+            training1.Add(new Lecture()
+            {
+                Description = null,
+                Topic = ".Net-Course"
+            });
+            training1.Add(new PracticalLesson());
 
             Assert.IsTrue(training1.Lessons[0] != null);
             Assert.IsTrue(training1.Lessons[1] != null);
 
-            training1.Add(new Lecture(null, "Java-Course"));
+            training1.Add(new Lecture() 
+            {
+                Description = null,
+                Topic = "Java-course"
+            });
             Assert.IsTrue(training1.Lessons.Length == 4);
             Assert.IsTrue(training1.Lessons[2] != null);
             Assert.IsTrue(training1.Lessons[3] == null);
@@ -27,14 +35,18 @@ namespace LessonsTest
             var training1 = new Trainig();
             Assert.IsFalse(training1.IsPractical());
 
-            training1.Add(new Lecture(null, ".Net-Course"));
-            training1.Add(new PracticalLesson(null, null, null));
+            training1.Add(new Lecture()
+            {
+                Description = null,
+                Topic = ".Net-Course"
+            });
+            training1.Add(new PracticalLesson());
 
             Assert.IsFalse(training1.IsPractical());
 
             var training2 = new Trainig();
-            training2.Add(new PracticalLesson(null, null, null));
-            training2.Add(new PracticalLesson(null, null, null));
+            training2.Add(new PracticalLesson());
+            training2.Add(new PracticalLesson());
 
             Assert.IsTrue(training2.IsPractical());
         }
@@ -44,17 +56,18 @@ namespace LessonsTest
         public void TrainigClone()
         {
             var training1 = new Trainig();
-            training1.Add(new Lecture(null, ".Net-Course"));
-            training1.Add(new PracticalLesson(null, null, null));
-            var training2 = new Trainig();
-
-            training1.Clone(training2);
-
-            Assert.IsFalse(training1 == training2);
-            for (int i = 0; i < training1.Lessons.Length; i++)
+            training1.Add(new Lecture()
             {
-                Assert.IsTrue(training1.Lessons[i] == training2.Lessons[i]);
-            }
+                Description = "Something very important",
+                Topic = ".Net-Course"
+            });
+            training1.Add(new PracticalLesson());
+            
+            var cloned = (Trainig) training1.Clone();
+
+            Assert.IsFalse(training1 == cloned);
+            Assert.IsFalse(training1.Lessons[0] == cloned.Lessons[0]);
+            Assert.IsTrue(training1.Lessons[0].Description == cloned.Lessons[0].Description);
         }
     }
 }
