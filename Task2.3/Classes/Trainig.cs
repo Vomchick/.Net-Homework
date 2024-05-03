@@ -1,6 +1,6 @@
 ﻿namespace Task2._3.Classes;
 
-public class Trainig : LessonBase
+public class Trainig : TrainigBase
 {
     public LessonBase[] Lessons { get; private set; } = new LessonBase[2];
     int _lessonsCount = 0;
