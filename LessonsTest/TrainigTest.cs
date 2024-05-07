@@ -8,7 +8,7 @@ namespace LessonsTest
         [TestMethod]
         public void TrainigAdd()
         {
-            var training1 = new Trainig();
+            var training1 = new Training();
             training1.Add(new Lecture()
             {
                 Description = null,
@@ -32,7 +32,7 @@ namespace LessonsTest
         [TestMethod]
         public void TrainigIsPractical()
         {
-            var training1 = new Trainig();
+            var training1 = new Training();
             Assert.IsFalse(training1.IsPractical());
 
             training1.Add(new Lecture()
@@ -44,7 +44,7 @@ namespace LessonsTest
 
             Assert.IsFalse(training1.IsPractical());
 
-            var training2 = new Trainig();
+            var training2 = new Training();
             training2.Add(new PracticalLesson());
             training2.Add(new PracticalLesson());
 
@@ -55,7 +55,7 @@ namespace LessonsTest
         [TestMethod]
         public void TrainigClone()
         {
-            var training1 = new Trainig();
+            var training1 = new Training();
             training1.Add(new Lecture()
             {
                 Description = "Something very important",
@@ -63,7 +63,7 @@ namespace LessonsTest
             });
             training1.Add(new PracticalLesson());
             
-            var cloned = (Trainig) training1.Clone();
+            var cloned = (Training) training1.Clone();
 
             Assert.IsFalse(training1 == cloned);
             Assert.IsFalse(training1.Lessons[0] == cloned.Lessons[0]);

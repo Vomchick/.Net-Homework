@@ -1,6 +1,6 @@
 ﻿namespace Task2._3.Classes;
 
-public class Trainig : TrainigBase
+public class Training : TrainingBase
 {
     public LessonBase[] Lessons { get; private set; } = new LessonBase[2];
     int _lessonsCount = 0;
@@ -38,7 +38,7 @@ public class Trainig : TrainigBase
 
     public override object Clone()
     {
-        var clonedTrainig = new Trainig()
+        var clonedTrainig = new Training()
         {
             Description = Description,
             _lessonsCount = _lessonsCount,
