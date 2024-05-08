@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace QueueTask3_1
+﻿namespace QueueTask3_1
 {
     internal class Program
     {
