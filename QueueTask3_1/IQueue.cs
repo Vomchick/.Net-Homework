@@ -7,4 +7,6 @@ public interface IQueue<T> : ICloneable
     public void Dequeue();
 
     public bool IsEmpty();
+
+    public T[] ToArray();
 }

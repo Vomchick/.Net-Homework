@@ -4,25 +4,28 @@ public class Queue<T> : IQueue<T>
 {
     private QueueElement<T>? _head;
     private QueueElement<T>? _tail;
+    private int _count = 0;
 
     public Queue(T value)
     {
         _head = new QueueElement<T> { Value = value };
         _tail = _head;
+        _count++;
     }
     public Queue() { }
 
-    private Queue(QueueElement<T>? head, QueueElement<T>? tail)
+    private Queue(QueueElement<T>? head, QueueElement<T>? tail, int count)
     {
         _head = head;
         _tail = tail;
+        _count = count;
     }
 
     public object Clone() 
     {
         if(_head == null)
         {
-            return new Queue<T>(_head, _tail);
+            return new Queue<T>(_head, _tail, 0);
         }
 
         var newValuesFromHead = (QueueElement<T>)_head?.Clone();
@@ -36,46 +39,52 @@ public class Queue<T> : IQueue<T>
             }
             iterator = iterator.Next;
         }
-        return new Queue<T>(newValuesFromHead, newTail);
+        return new Queue<T>(newValuesFromHead, newTail, _count);
     } 
 
     public void Dequeue()
     {
-        try
+        if(_head == null)
         {
-            _head = _head.Next;
-            if (_head == null) 
-            { 
-                _tail = null;
-            }
+            throw new NullReferenceException();
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.ToString());
+
+        _head = _head.Next;
+        if (_head == null) 
+        { 
+            _tail = null;
         }
+        _count--;
     }
 
     public void Enqueue(T value)
     {
-        try
+        if (_tail != null)
         {
-            if (_tail != null)
-            {
-                _tail.Next = new QueueElement<T> { Value = value };
-                _tail = _tail.Next;
-            }
-            else
-            {
-                _head = new QueueElement<T> { Value = value };
-                _tail = _head;
-            }
+            _tail.Next = new QueueElement<T> { Value = value };
+            _tail = _tail.Next;
         }
-        catch (Exception ex)
+        else
         {
-            Console.WriteLine(ex.ToString());
+            _head = new QueueElement<T> { Value = value };
+            _tail = _head;
         }
+        _count++;
     }
 
-    public bool IsEmpty() => _head == null;
+    public bool IsEmpty() => _head == null; //or _count == 0
+
+    public T[] ToArray()
+    {
+        var arr = new T[_count];
+        var iterator = _head;
+        for(int i = 0; i < _count; i++)
+        {
+            arr[i] = iterator.Value;
+            iterator = iterator.Next;
+        }
+
+        return arr;
+    }
 }
 
